@@ -9,26 +9,26 @@
             padding: 0;
             background: #f0f0f0;
             font-family: Arial, sans-serif;
-            height: 100vh;  /* 确保整个视口高度 */
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         #gameArea {
             position: relative;
-            width: 100vw;  /* 修改为填充整个视口宽度 */
-            height: 100vh; /* 修改为填充整个视口高度 */
+            width: 30vw;  /* 宽度填充整个视口 */
+            height: 40vh; /* 高度填充整个视口 */
             background: #add8e6;
             overflow: hidden;
             border-radius: 10px;
         }
         #ball {
             position: absolute;
-            width: 10vw; /* 可根据需要进行调整 */
-            height: 10vw; /* 保持圆形 */
-            max-width: 100px;  
-            max-height: 100px; 
-            background-image: url(''); /* 请添加背景图像URL */
+            width: 10vw; /* 小球大小自适应屏幕宽度 */
+            height: 10vw; /* 高度和宽度相等，保持圆形 */
+            max-width: 100px;  /* 最大宽度限制 */
+            max-height: 100px; /* 最大高度限制 */
+            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
             background-size: cover;
             border-radius: 50%;
             cursor: pointer;
@@ -82,7 +82,7 @@
     const hiddenMessage = document.getElementById('hiddenMessage');
 
     let score = 0;
-    let timeLeft = 30;
+    let timeLeft = 30; // 秒
 
     function moveBall() {
         const maxX = gameArea.offsetWidth - ball.offsetWidth;
@@ -98,12 +98,14 @@
         scoreText.textContent = `Score: ${score}`;
         moveBall();
 
+        // 10分后小球变小
         if (score >= 10) {
-            ball.style.width = '8vw';  
+            ball.style.width = '8vw';  // 变小
             ball.style.height = '8vw';
         }
     });
 
+    // 倒计时
     const timerInterval = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
@@ -114,6 +116,7 @@
         }
     }, 1000);
 
+    // 隐藏模式：按Q键隐藏
     document.addEventListener('keydown', (event) => {
         if (event.key === 'q' || event.key === 'Q') {
             hiddenMessage.style.display = 'block';
@@ -121,6 +124,7 @@
         }
     });
 
+    // 初始随机位置
     moveBall();
 </script>
 
