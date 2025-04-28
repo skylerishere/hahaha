@@ -10,18 +10,24 @@
             overflow: hidden;
             background: #f0f0f0;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         #gameArea {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+            width: 600px; /* 游戏区域宽度限制 */
+            height: 400px; /* 游戏区域高度限制 */
             background: #add8e6;
+            overflow: hidden;
+            border-radius: 10px;
         }
         #ball {
             position: absolute;
-            width: 100px; /* 这里可以调整照片大小 */
-            height: 100px;
-            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 这里替换成王怡然的照片链接 */
+            width: 80px; /* 小球大小调整 */
+            height: 80px;
+            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 这里替换为王怡然的照片链接 */
             background-size: cover;
             border-radius: 50%;
             cursor: pointer;
@@ -29,7 +35,7 @@
         #score, #timer {
             position: absolute;
             top: 10px;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #333;
         }
@@ -75,8 +81,8 @@
     let timeLeft = 30; // 秒
 
     function moveBall() {
-        const maxX = window.innerWidth - ball.offsetWidth;
-        const maxY = window.innerHeight - ball.offsetHeight;
+        const maxX = gameArea.offsetWidth - ball.offsetWidth;
+        const maxY = gameArea.offsetHeight - ball.offsetHeight;
         const randomX = Math.random() * maxX;
         const randomY = Math.random() * maxY;
         ball.style.left = `${randomX}px`;
@@ -90,8 +96,8 @@
 
         // 10分后小球变小
         if (score >= 10) {
-            ball.style.width = '80px';  // 变小
-            ball.style.height = '80px';
+            ball.style.width = '60px';  // 变小
+            ball.style.height = '60px';
         }
     });
 
@@ -102,8 +108,8 @@
             timerText.textContent = `Time: ${timeLeft}`;
         } else {
             clearInterval(timerInterval);
-            alert(`哈哈！你的得分是: ${score}`);
-        
+            alert(`哈哈！游戏结束！你的分数是: ${score}`);
+        }
     }, 1000);
 
     // 隐藏模式：按Q键隐藏
