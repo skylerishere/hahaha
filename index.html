@@ -19,9 +19,10 @@
         }
         #ball {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: red;
+            width: 100px; /* 这里可以调整照片大小 */
+            height: 100px;
+            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 这里替换成王怡然的照片链接 */
+            background-size: cover;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -49,15 +50,6 @@
             line-height: 100vh;
             font-family: 'Courier New', Courier, monospace;
         }
-        #photo {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-        }
     </style>
 </head>
 <body>
@@ -66,8 +58,6 @@
     <div id="score">Score: 0</div>
     <div id="timer">Time: 30</div>
     <div id="ball"></div>
-    <!-- 预留照片位置，这里可以替换成王怡然的照片 -->
-    <img id="photo" src="https://i.imgur.com/iSv94xt.jpeg" alt="王怡然">
 </div>
 
 <div id="hiddenMessage">
@@ -83,7 +73,6 @@
 
     let score = 0;
     let timeLeft = 30; // 秒
-    let ballSize = 60; // 初始大小
 
     function moveBall() {
         const maxX = window.innerWidth - ball.offsetWidth;
@@ -101,9 +90,8 @@
 
         // 10分后小球变小
         if (score >= 10) {
-            ballSize = 30;
-            ball.style.width = `${ballSize}px`;
-            ball.style.height = `${ballSize}px`;
+            ball.style.width = '80px';  // 变小
+            ball.style.height = '80px';
         }
     });
 
@@ -114,8 +102,8 @@
             timerText.textContent = `Time: ${timeLeft}`;
         } else {
             clearInterval(timerInterval);
-            alert(`游戏结束！你的分数是: ${score}`);
-        }
+            alert(`哈哈！你的得分是: ${score}`);
+        
     }, 1000);
 
     // 隐藏模式：按Q键隐藏
