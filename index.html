@@ -143,18 +143,36 @@
     });
 
     moveBall();// 点击或触摸屏幕也隐藏
+let isHidden = false; // 标记是否处于隐藏模式
+
+// 点击或触摸
 document.addEventListener('click', (event) => {
-    // 判断如果点击的不是小球（id不是ball），才触发隐藏
-    if (event.target.id !== 'ball') {
-        hiddenMessage.style.display = 'block';
-        gameArea.style.display = 'none';
+    if (!isHidden) {
+        // 游戏界面状态
+        if (event.target.id !== 'ball') {
+            hiddenMessage.style.display = 'block';
+            gameArea.style.display = 'none';
+            isHidden = true;
+        }
+    } else {
+        // 隐藏界面状态，再次点击回来
+        hiddenMessage.style.display = 'none';
+        gameArea.style.display = 'block';
+        isHidden = false;
     }
 });
 
 document.addEventListener('touchstart', (event) => {
-    if (event.target.id !== 'ball') {
-        hiddenMessage.style.display = 'block';
-        gameArea.style.display = 'none';
+    if (!isHidden) {
+        if (event.target.id !== 'ball') {
+            hiddenMessage.style.display = 'block';
+            gameArea.style.display = 'none';
+            isHidden = true;
+        }
+    } else {
+        hiddenMessage.style.display = 'none';
+        gameArea.style.display = 'block';
+        isHidden = false;
     }
 });
 </script>
