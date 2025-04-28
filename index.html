@@ -16,11 +16,13 @@
         }
         #gameArea {
             position: relative;
-            width: 90vw;  /* 宽度填充整个视口 */
-            height: 90vh; /* 高度填充整个视口 */
+            width:80vw;  /* 宽度填充整个视口 */
+            height:60vh; /* 高度填充整个视口 */
             background: #add8e6;
             overflow: hidden;
             border-radius: 10px;
+            max-width: 600px; /* 最大宽度，防止太大 */
+            max-height: 400px; /* 最大高度，防止太大 */
         }
         #ball {
             position: absolute;
@@ -31,7 +33,7 @@
             background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
             background-size: cover;
             border-radius: 50%;
-            cursor: pointer;
+            cursor: pointer; 
         }
         #score, #timer {
             position: absolute;
