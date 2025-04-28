@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head> 
+    <meta charset="UTF-8">
+    <title>又摸鱼呢王怡然！</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #gameArea {
+            position: relative;
+            width: 100vw;  /* 宽度填充整个视口 */
+            height: 100vh; /* 高度填充整个视口 */
+            background: #add8e6;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        #ball {
+            position: absolute;
+            width: 10vw; /* 小球大小自适应屏幕宽度 */
+            height: 10vw; /* 高度和宽度相等，保持圆形 */
+            max-width: 100px;  /* 最大宽度限制 */
+            max-height: 100px; /* 最大高度限制 */
+            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #score, #timer {
+            position: absolute;
+            top: 10px;
+            font-size: 3vw;
+            font-weight: bold;
+            color: #333;
+        }
+        #score {
+            left: 10px;
+        }
+        #timer {
+            right: 10px;
+        }
+        #hiddenMessage {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            color: black;
+            font-size: 40px;
+            text-align: center;
+            line-height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameArea">
+    <div id="score">Score: 0</div>
+    <div id="timer">Time: 30</div>
+    <div id="ball"></div>
+</div>
+
+<div id="hiddenMessage">
+    Microsoft Excel 正在加载中...
+</div>
+
+<script>
+    const ball = document.getElementById('ball');
+    const scoreText = document.getElementById('score');
+    const timerText = document.getElementById('timer');
+    const gameArea = document.getElementById('gameArea');
+    const hiddenMessage = document.getElementById('hiddenMessage');
+
+    let score = 0;
+    let timeLeft = 30; // 秒
+
+    function moveBall() {
+        const maxX = gameArea.offsetWidth - ball.offsetWidth;
+        const maxY = gameArea.offsetHeight - ball.offsetHeight;
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+        ball.style.left = `${randomX}px`;
+        ball.style.top = `${randomY}px`;
+    }
+
+    ball.addEventListener('click', () => {
+        score++;
+        scoreText.textContent = `Score: ${score}`;
+        moveBall();
+
+        // 10分后小球变小
+        if (score >= 10) {
+            ball.style.width = '8vw';  // 变小
+            ball.style.height = '8vw';
+        }
+    });
+
+    // 倒计时
+    const timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+            timeLeft--;
+            timerText.textContent = `Time: ${timeLeft}`;
+        } else {
+            clearInterval(timerInterval);
+            alert(`哈哈！游戏结束！你的分数是: ${score}`);
+        }
+    }, 1000);
+
+    // 隐藏模式：按Q键隐藏
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'q' || event.key === 'Q') {
+            hiddenMessage.style.display = 'block';
+            gameArea.style.display = 'none';
+        }
+    });
+
+    // 初始随机位置
+    moveBall();
+</script>
+
+</body>
+</html>
