@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head> 
     <meta charset="UTF-8">
-    <title>报告老板！王怡然在摸鱼！</title>
+    <title>又摸鱼呢王怡然！</title>
     <style>
         body {
             margin: 0;
@@ -17,16 +17,18 @@
         }
         #gameArea {
             position: relative;
-            width: 600px; /* 游戏区域宽度限制 */
-            height: 400px; /* 游戏区域高度限制 */
+            width: 80vw;  /* 宽度自适应视口宽度 */
+            height: 60vh; /* 高度自适应视口高度 */
             background: #add8e6;
             overflow: hidden;
             border-radius: 10px;
         }
         #ball {
             position: absolute;
-            width: 80px; /* 小球大小调整 */
-            height: 80px;
+            width: 10vw; /* 小球大小自适应屏幕宽度 */
+            height: 10vw; /* 高度和宽度相等，保持圆形 */
+            max-width: 100px;  /* 最大宽度限制 */
+            max-height: 100px; /* 最大高度限制 */
             background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
             background-size: cover;
             border-radius: 50%;
@@ -35,7 +37,7 @@
         #score, #timer {
             position: absolute;
             top: 10px;
-            font-size: 20px;
+            font-size: 3vw;
             font-weight: bold;
             color: #333;
         }
@@ -96,8 +98,8 @@
 
         // 10分后小球变小
         if (score >= 10) {
-            ball.style.width = '60px';  // 变小
-            ball.style.height = '60px';
+            ball.style.width = '8vw';  // 变小
+            ball.style.height = '8vw';
         }
     });
 
@@ -108,7 +110,7 @@
             timerText.textContent = `Time: ${timeLeft}`;
         } else {
             clearInterval(timerInterval);
-            alert(`游戏结束！你的分数是: ${score}`);
+            alert(`哈哈！游戏结束！你的分数是: ${score}`);
         }
     }, 1000);
 
