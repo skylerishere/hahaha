@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head> 
+<head>
     <meta charset="UTF-8">
- <title>保险信息研究所-各类保险介绍及比较工具</title>
+    <title>来摸鱼吧！</title>
     <style>
         body {
             margin: 0;
             padding: 0;
+            overflow: hidden;
             background: #f0f0f0;
             font-family: Arial, sans-serif;
             display: flex;
@@ -16,8 +17,8 @@
         }
         #gameArea {
             position: relative;
-            width:80vw;  /* 宽度填充整个视口 */
-            height:60vh; /* 高度填充整个视口 */
+            width: 80vw;  /* 宽度自适应视口宽度 */
+            height: 60vh; /* 高度自适应视口高度 */
             background: #add8e6;
             overflow: hidden;
             border-radius: 10px;
@@ -31,7 +32,7 @@
             background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
             background-size: cover;
             border-radius: 50%;
-            cursor: pointer; 
+            cursor: pointer;
         }
         #score, #timer {
             position: absolute;
@@ -48,9 +49,6 @@
         }
         #hiddenMessage {
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background: white;
@@ -71,7 +69,7 @@
 </div>
 
 <div id="hiddenMessage">
-    ERR_CONNECTION_REFUSED
+    Microsoft Excel 正在加载中...
 </div>
 
 <script>
@@ -112,7 +110,7 @@
             timerText.textContent = `Time: ${timeLeft}`;
         } else {
             clearInterval(timerInterval);
-            alert(`哈哈！游戏结束！你的分数是: ${score}`);
+            alert(`游戏结束！你的分数是: ${score}`);
         }
     }, 1000);
 
