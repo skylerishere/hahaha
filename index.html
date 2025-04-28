@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>来摸鱼吧！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
@@ -17,20 +18,21 @@
         }
         #gameArea {
             position: relative;
-            width: 80vw;  /* 宽度自适应视口宽度 */
-            height: 60vh; /* 高度自适应视口高度 */
+            width: 80vw;
+            height: 60vh;
             background: #add8e6;
             overflow: hidden;
             border-radius: 10px;
         }
         #ball {
             position: absolute;
-            width: 10vw; /* 小球大小自适应屏幕宽度 */
-            height: 10vw; /* 高度和宽度相等，保持圆形 */
-            max-width: 100px;  /* 最大宽度限制 */
-            max-height: 100px; /* 最大高度限制 */
-            background-image: url('https://i.imgur.com/iSv94xt.jpeg'); /* 王怡然的照片 */
+            width: 10vw;
+            height: 10vw;
+            max-width: 100px;
+            max-height: 100px;
+            background-image: url('https://i.imgur.com/iSv94xt.jpeg');
             background-size: cover;
+            background-position: center;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -58,6 +60,18 @@
             line-height: 100vh;
             font-family: 'Courier New', Courier, monospace;
         }
+        #endImage {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
@@ -66,6 +80,7 @@
     <div id="score">Score: 0</div>
     <div id="timer">Time: 30</div>
     <div id="ball"></div>
+    <img id="endImage" src="https://i.imgur.com/iSv94xt.jpeg" alt="游戏结束图片">
 </div>
 
 <div id="hiddenMessage">
@@ -78,9 +93,11 @@
     const timerText = document.getElementById('timer');
     const gameArea = document.getElementById('gameArea');
     const hiddenMessage = document.getElementById('hiddenMessage');
+    const endImage = document.getElementById('endImage');
 
     let score = 0;
-    let timeLeft = 30; // 秒
+    let timeLeft = 30;
+    let gameActive = true; // 添加一个控制游戏是否进行的标志位
 
     function moveBall() {
         const maxX = gameArea.offsetWidth - ball.offsetWidth;
@@ -92,25 +109,28 @@
     }
 
     ball.addEventListener('click', () => {
+        if (!gameActive) return; // 游戏结束后禁止加分
+
         score++;
         scoreText.textContent = `Score: ${score}`;
         moveBall();
 
-        // 10分后小球变小
         if (score >= 10) {
-            ball.style.width = '8vw';  // 变小
+            ball.style.width = '8vw';
             ball.style.height = '8vw';
         }
     });
 
-    // 倒计时
+    // 倒计时逻辑
     const timerInterval = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
             timerText.textContent = `Time: ${timeLeft}`;
         } else {
             clearInterval(timerInterval);
-            alert(`游戏结束！你的分数是: ${score}`);
+            gameActive = false; // 游戏停止
+            ball.style.display = 'none'; // 隐藏小球
+            endImage.style.display = 'block'; // 显示结束图片
         }
     }, 1000);
 
@@ -122,9 +142,17 @@
         }
     });
 
-    // 初始随机位置
-    moveBall();
-</script>
+    moveBall(); // 初始化移动一次
+</script>// 点击或触摸屏幕也隐藏
+document.addEventListener('click', () => {
+    hiddenMessage.style.display = 'block';
+    gameArea.style.display = 'none';
+});
+
+document.addEventListener('touchstart', () => {
+    hiddenMessage.style.display = 'block';
+    gameArea.style.display = 'none';
+});
 
 </body>
 </html>
